@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -51,7 +52,7 @@ public class GameController : MonoBehaviour
                     Debug.Log("------------------------------------------------" + currentPlayer.GetColor() + " wins");
                     GameOverState.gameResult = currentPlayer.GetColor();
                     gameOver = true;
-                    Canvas.FindObjectOfType<GUIText>().text = "the winner is " + currentPlayer.GetColor();
+                    //Canvas.FindObjectOfType<GUIText>().text = "the winner is " + currentPlayer.GetColor();
                     //GetComponent<Canvas>().GetComponent<GUIText>().text = 
                 }
                 else
@@ -68,6 +69,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            SceneManager.LoadScene(0);
             // show win, loss, draw and ask to play again..
 
         }
