@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
             turnPlayed = currentPlayer.PlayTurn();
             if (turnPlayed)
             {
-                if (checkWin(currentPlayer.GetColor()))
+                if (checkWin())
                 {
                     Debug.Log("------------------------------------------------" + currentPlayer.GetColor() + " wins");
                     gameOver = true;
@@ -80,20 +80,22 @@ public class GameController : MonoBehaviour {
     }
 
 
-    private bool checkWin(string playerName)
+    private bool checkWin()
     {
         int[][] directions = board.GetDirections();
         // Debug.Log("checking for winner on col" + col);
         for (int col = 0; col < HorizontalSize; col++)
         {
-            for (int i = 0; i < board.GetDirections().Length / 2; i++)
+            for (int i = 0; i < directions.Length / 2; i++)
             {
                 var direction1 = directions[i];
                 var direction2 = directions[directions.Length - (i + 1)];
-                var scoreDirection1 = board.checkScoreFromPoint(1, col, board.findRowInCol(col) - 1, direction1[0], direction1[1], playerName);
-                var scoreDirection2 = board.checkScoreFromPoint(1, col, board.findRowInCol(col) - 1, direction2[0], direction2[1], playerName);
+                int row = board.findRowInCol(col) - 1;
+                var scoreDirection1 = board.checkScoreFromPoint(1, col, row, direction1[0], direction1[1], currentPlayer.GetColor());
+                var scoreDirection2 = board.checkScoreFromPoint(1, col, row, direction2[0], direction2[1], currentPlayer.GetColor());
                 var tempScore = (scoreDirection1 + scoreDirection2 - 1);
-                // Debug.Log("Direction: [x:" + direction[0] + "; y: " + direction[1] + "]");
+                //Debug.Log("Point [" + col + ", " + row + "] Direction: [x:" + direction1[0] + "; y: " + direction1[1] + "] has a score of: " + scoreDirection1);
+                //Debug.Log("Point [" + col + ", " + row + "] Direction: [x:" + direction2[0] + "; y: " + direction2[1] + "] has a score of: " + scoreDirection2);
                 //Debug.Log("score direction1: " + scoreDirection1);
                 //Debug.Log("score opposite: " + scoreDirection2);
                 if (tempScore >= scoreToWin)
@@ -213,16 +215,16 @@ public class GameController : MonoBehaviour {
     private void togglePlayer()
     {
         PlayerInterface tmpPlayer = waitingPlayer;
-        Debug.Log("tmp player is ai? " + tmpPlayer.IsAi());
+        //Debug.Log("tmp player is ai? " + tmpPlayer.IsAi());
         waitingPlayer = currentPlayer;
-        Debug.Log("waitingPlayer player is ai? " + waitingPlayer.IsAi());
+        //Debug.Log("waitingPlayer player is ai? " + waitingPlayer.IsAi());
         currentPlayer = tmpPlayer;
-        Debug.Log("currentPlayer player is ai? " + currentPlayer.IsAi());
+        //Debug.Log("currentPlayer player is ai? " + currentPlayer.IsAi());
     }
 
     public void TestMyShit()
     {
-        Debug.Log("ShitTest Worked");
+        //Debug.Log("ShitTest Worked");
     }
     /*
     private float scoreForCenter(int col, int row)

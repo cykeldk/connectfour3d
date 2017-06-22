@@ -64,7 +64,7 @@ public class BoardControl : BoardInterface {
     {
 
         int counter = 0;
-        while (counter < VerticalSize && fields[col][counter].GetPiece() != null)
+        while (counter < VerticalSize - 1 && fields[col][counter].GetPiece() != null)
         {
             counter++;
         }
@@ -73,11 +73,10 @@ public class BoardControl : BoardInterface {
     
     public float checkCol(int col, string playerColor)
     {
-
-        if (GetPieceAt(col, VerticalSize - 1) != null)
+        
+        if (fields[col][VerticalSize - 1].GetPiece() != null)
         {
-            // Debug.Log("column " + col + " is full");
-            return 0f;
+            return -1f;
         }
         float tmp = 0f;
         string debugString = "column " + col + "\n";
@@ -86,7 +85,7 @@ public class BoardControl : BoardInterface {
             var row = findRowInCol(col);
             var direction1 = directions[i];
             var direction2 = directions[directions.Length - (i + 1)];
-
+            
             var scoreDirection1 = checkScoreFromPoint(1, col, row, direction1[0], direction1[1], playerColor);
             var scoreDirection2 = checkScoreFromPoint(1, col, row, direction2[0], direction2[1], playerColor);
 
@@ -121,6 +120,9 @@ public class BoardControl : BoardInterface {
 
     public int checkScoreFromPoint(int count, int positionX, int positionY, int directionX, int directionY, string playerName)
     {
+        if (!IsValidPosition(positionX, positionY)) return count;
+        if (GetPieceAt(positionX, positionY) == null) return 0;
+        if (!GetPlayerAt(positionX, positionY).Equals(playerName)) return 0;
         int nextX = positionX + directionX;
         int nextY = positionY + directionY;
         if (!IsValidPosition(nextX, nextY)) return count;
@@ -138,7 +140,6 @@ public class BoardControl : BoardInterface {
     {
         bool xValid = (x >= 0 && x < HorizontalSize);
         bool yValid = (y >= 0 && y < VerticalSize);
-        // Debug.Log("position (" + x + ", " + y + ") is " + (xValid && yValid));
         return xValid && yValid;
 
     }

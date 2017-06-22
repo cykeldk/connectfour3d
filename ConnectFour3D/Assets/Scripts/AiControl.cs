@@ -51,20 +51,21 @@ public class AiControl : PlayerInterface {
         List<int> possibleColsToPlay = new List<int>();
         float tempScore = 0f;
         var blockCol = canOtherPlayerWin();
-        Debug.Log(playerColor + "'s block col returned block column: " + blockCol);
+        //Debug.Log(playerColor + "'s block col returned block column: " + blockCol);
         if (blockCol >= 0)
         {
             int block = sysrand.Next(100);
             if (block > confusion)
             {
                 board.AddPiece(blockCol, playerColor);
-                Debug.Log(playerColor + " blocked the other players win :-)");
+                Debug.Log(playerColor + "blocking col: " + blockCol);
+                //Debug.Log(playerColor + " blocked the other players win :-)");
                 return true;
             }
-            else
-            {
-                Debug.Log(playerColor + " got confused");
-            }
+            //else
+            //{
+            Debug.Log(playerColor + " got confused");
+            //}
         }
         
         
@@ -83,13 +84,14 @@ public class AiControl : PlayerInterface {
                 // Debug.Log("score " + score + " is new highscore at " + i);
                 possibleColsToPlay.Clear();
                 possibleColsToPlay.Add(i);
-                tempScore = board.checkCol(i, playerColor);
+                tempScore = score;
             }
             // Debug.Log("column " + i + " has a value of " + tempScore);
         }
         int indexToPlay = sysrand.Next(possibleColsToPlay.Count);
         //Debug.Log("amount: " + possibleColsToPlay.Count + " index chosen: " + possibleColsToPlay[indexToPlay] + " Highscore: " + tempScore);
         int colToPlay = possibleColsToPlay[indexToPlay];
+        Debug.Log(playerColor + "playing col: " + colToPlay);
         board.AddPiece(colToPlay, playerColor);
 
         //Debug.Log("______________________________________" + playerName + " is playing column " + colToPlay);

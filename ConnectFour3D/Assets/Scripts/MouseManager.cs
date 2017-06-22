@@ -15,11 +15,11 @@ public class MouseManager : MonoBehaviour {
         {
             //Debug.Log("mouse1 was clicked");
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log(ray);
+            //Debug.Log(ray);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider.transform.position.x + " was clicked");
+                //Debug.Log(hit.collider.transform.position.x + " was clicked");
                 int humanInput = (int) hit.collider.transform.position.x;
                 var game = (GameController) GameObject.FindObjectOfType<GameController>();
                 game.TestMyShit();
