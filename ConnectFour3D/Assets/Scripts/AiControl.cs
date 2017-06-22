@@ -110,4 +110,9 @@ public class AiControl : PlayerInterface {
         }
         return -1;
     }
+
+    public void SetNextCol(int clickInput)
+    {
+        return;
+    }
 }

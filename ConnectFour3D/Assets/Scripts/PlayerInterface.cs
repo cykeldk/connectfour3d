@@ -8,4 +8,5 @@ public interface PlayerInterface  {
     bool IsAi();
     string GetName();
     string GetColor();
+    void SetNextCol(int clickInput);
 }

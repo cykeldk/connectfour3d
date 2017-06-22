@@ -48,10 +48,13 @@ public class HumanPlayerControl : MonoBehaviour, PlayerInterface
     public bool PlayTurn()
     {
         myTurn = true;
+        
         if (nextCol >= 0)
         {
-            if (board.findRowInCol(nextCol) > 0)
+            
+            if (board.findRowInCol(nextCol) >= 0)
             {
+                Debug.Log("playing human :" + nextCol);
                 board.AddPiece(nextCol, playerColor);
                 nextCol = -1;
                 myTurn = false;
@@ -63,13 +66,7 @@ public class HumanPlayerControl : MonoBehaviour, PlayerInterface
         //Debug.Log(playerColor + "'s block col returned block column: " + blockCol);
         return false;
     }
-
-    public void setNextCol(int col)
-    {
-        nextCol = col;
-        Debug.Log("next col to play has been set to " + col);
-    }
-
+    
     public int canOtherPlayerWin()
     {
 
@@ -83,5 +80,11 @@ public class HumanPlayerControl : MonoBehaviour, PlayerInterface
             }
         }
         return -1;
+    }
+
+    public void SetNextCol(int clickInput)
+    {
+        Debug.Log("next col set to : " + clickInput);
+        nextCol = clickInput;
     }
 }
