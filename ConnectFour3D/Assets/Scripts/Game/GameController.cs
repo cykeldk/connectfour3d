@@ -51,7 +51,15 @@ public class GameController : MonoBehaviour
                 if (checkWin())
                 {
                     Debug.Log("------------------------------------------------" + currentPlayer.GetColor() + " wins");
-                    GameOverState.gameResult = currentPlayer.GetColor();
+                    if (currentPlayer.IsAi())
+                    {
+                        GameOverState.gameResult = "The AI level " + PreGameSettings.getDifficulty() + " won";
+                    }
+                    else
+                    {
+                        GameOverState.gameResult = "Congratulations " + currentPlayer.GetName() + " you beat AI level " + PreGameSettings.getDifficulty();
+                    }
+                    
                     gameOver = true;
                     //Canvas.FindObjectOfType<GUIText>().text = "the winner is " + currentPlayer.GetColor();
                     //GetComponent<Canvas>().GetComponent<GUIText>().text = 
