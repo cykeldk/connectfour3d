@@ -76,6 +76,7 @@ public class BoardControl : BoardInterface {
         
         if (fields[col][VerticalSize - 1].GetPiece() != null)
         {
+            Debug.Log("column " + col + "is full");
             return -1f;
         }
         float tmp = 0f;
@@ -83,24 +84,26 @@ public class BoardControl : BoardInterface {
         for (int i = 0; i < directions.Length / 2; i++)
         {
             var row = findRowInCol(col);
+            
             var direction1 = directions[i];
             var direction2 = directions[directions.Length - (i + 1)];
             
             var scoreDirection1 = checkScoreFromPoint(1, col, row, direction1[0], direction1[1], playerColor);
             var scoreDirection2 = checkScoreFromPoint(1, col, row, direction2[0], direction2[1], playerColor);
-
-            debugString += i + "(" + direction1[0] + ", " + direction1[1] + ")  ::: score = " + scoreDirection1 + "\n";
-            debugString += i + "(" + direction2[0] + ", " + direction2[1] + ")  ::: score = " + scoreDirection2 + "\n";
+            debugString += "___________________________________DEBUG START__________________________________\n";
+            debugString += "(" + direction1[0] + ", " + direction1[1] + ")  ::: score = " + scoreDirection1 + "\n";
+            debugString +=  "(" + direction2[0] + ", " + direction2[1] + ")  ::: score = " + scoreDirection2 + "\n";
             debugString += "Sum : " + (scoreDirection1 + scoreDirection2) + "\n";
+            debugString += "___________________________________DEBUG END___________________________________\n";
 
             var tempScore = (scoreDirection1 + scoreDirection2 - 1); // minus one because checkScore from point counts the field it starts on
-
+            Debug.Log("checking [" + col + "; " + row + "] == " + tempScore);
             if (tempScore > tmp)
             {
                 tmp = tempScore;
             }
         }
-        //Debug.Log(debugString);
+        Debug.Log(debugString);
         debugString = "";
         return tmp;
 
@@ -118,19 +121,19 @@ public class BoardControl : BoardInterface {
 
 
 
-    public int checkScoreFromPoint(int count, int positionX, int positionY, int directionX, int directionY, string playerName)
+    public int checkScoreFromPoint(int count, int positionX, int positionY, int directionX, int directionY, string playerColor)
     {
-        if (!IsValidPosition(positionX, positionY)) return count;
-        if (GetPieceAt(positionX, positionY) == null) return 0;
-        if (!GetPlayerAt(positionX, positionY).Equals(playerName)) return 0;
+        //if (!IsValidPosition(positionX, positionY)) return count;
+        //if (GetPieceAt(positionX, positionY) == null) return 0;
+        //if (!GetPlayerAt(positionX, positionY).Equals(playerColor)) return 0;
         int nextX = positionX + directionX;
         int nextY = positionY + directionY;
         if (!IsValidPosition(nextX, nextY)) return count;
         if (GetPieceAt(nextX, nextY) == null) return count;
         var tmpPlayer = GetPlayerAt(nextX, nextY);
-        if (tmpPlayer.Equals(playerName))
+        if (tmpPlayer.Equals(playerColor))
         {
-            return checkScoreFromPoint(count + 1, nextX, nextY, directionX, directionY, playerName);
+            return checkScoreFromPoint(count + 1, nextX, nextY, directionX, directionY, playerColor);
         }
         else return count;
     }

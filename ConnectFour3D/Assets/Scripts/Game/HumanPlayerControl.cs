@@ -62,25 +62,25 @@ public class HumanPlayerControl : MonoBehaviour, PlayerInterface
 
             }
         }
-        int blockCol = canOtherPlayerWin();
+        //int blockCol = canOtherPlayerWin();
         //Debug.Log(playerColor + "'s block col returned block column: " + blockCol);
         return false;
     }
     
-    public int canOtherPlayerWin()
-    {
+    //public int canOtherPlayerWin()
+    //{
 
-        for (int i = 0; i < board.GetHorizontalSize(); i++)
-        {
-            var tmpScore = board.checkCol(i, opponentColor);
-            //Debug.Log("it was not " + playerColor + ", other players tmp score for " + i + " is " + tmpScore);
-            if (tmpScore >= 3)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
+    //    for (int i = 0; i < board.GetHorizontalSize(); i++)
+    //    {
+    //        var tmpScore = board.checkCol(i, opponentColor);
+    //        //Debug.Log("it was not " + playerColor + ", other players tmp score for " + i + " is " + tmpScore);
+    //        if (tmpScore >= 3)
+    //        {
+    //            return i;
+    //        }
+    //    }
+    //    return -1;
+    //}
 
     public void SetNextCol(int clickInput)
     {

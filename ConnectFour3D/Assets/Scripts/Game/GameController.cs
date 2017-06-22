@@ -31,8 +31,9 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        var difficulty = PreGameSettings.getDifficulty();
         board = new BoardControl(6, 4, FieldPrefab, white, black);
-        currentPlayer = new AiControl(30, board, "white");
+        currentPlayer = new AiControl(difficulty, board, "white");
         waitingPlayer = new HumanPlayerControl(board, "player1", "black");
     }
 

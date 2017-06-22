@@ -25,6 +25,7 @@ public class AiControl : PlayerInterface {
         {
             opponentColor = "white";
         }
+        Debug.Log("AI confusion: " + confusion);
     }
 	
 	// Update is called once per frame
@@ -104,8 +105,8 @@ public class AiControl : PlayerInterface {
         for (int i = 0; i < board.GetHorizontalSize(); i++)
         {
             var tmpScore = board.checkCol(i, opponentColor);
-            //Debug.Log("it was not " + playerColor + ", other players tmp score for " + i + " is " + tmpScore);
-            if (tmpScore >= 3)
+            Debug.Log("it was not " + playerColor + ", other players tmp score for " + i + " is " + tmpScore);
+            if (tmpScore > 3)
             {
                 return i;
             }
