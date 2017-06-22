@@ -16,10 +16,11 @@ public class GameController : MonoBehaviour
 
     public PlayerInterface currentPlayer;
     public PlayerInterface waitingPlayer;
-    private bool gameOver = false;
+    public bool gameOver = false;
     private bool turnPlayed = false;
     int turnNumber = 0;
 
+    public bool aiWon;
 
     // variables used for testing
     //public int addPieces;
@@ -54,10 +55,12 @@ public class GameController : MonoBehaviour
                     if (currentPlayer.IsAi())
                     {
                         GameOverState.gameResult = "The AI level " + PreGameSettings.getDifficulty() + " won";
+                        aiWon = true;
                     }
                     else
                     {
                         GameOverState.gameResult = "Congratulations " + currentPlayer.GetName() + " you beat AI level " + PreGameSettings.getDifficulty();
+                        aiWon = false;
                     }
                     
                     gameOver = true;
