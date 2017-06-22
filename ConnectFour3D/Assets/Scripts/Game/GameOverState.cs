@@ -4,9 +4,9 @@ using UnityEngine;
 
 
 public static class GameOverState {
-    static string gameResult { get; set; }
-    static int win { get; set; }
-    static int loss { get; set; }
-    static int draw { get; set; }
+    public static string gameResult { get; set; }
+    public static int win { get; set; }
+    public static int loss { get; set; }
+    public static int draw { get; set; }
 
 }
