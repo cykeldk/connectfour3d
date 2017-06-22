@@ -12,6 +12,6 @@ public interface BoardInterface {
     int GetVerticalSize();
     int GetHorizontalSize();
     int[][] GetDirections();
-    float checkCol(int col, string playerName);
+    float CheckColScore(int col, string playerName);
     int checkScoreFromPoint(int count, int positionX, int positionY, int directionX, int directionY, string playerName);
 }

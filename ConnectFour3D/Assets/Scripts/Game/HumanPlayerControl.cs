@@ -72,7 +72,7 @@ public class HumanPlayerControl : MonoBehaviour, PlayerInterface
 
     //    for (int i = 0; i < board.GetHorizontalSize(); i++)
     //    {
-    //        var tmpScore = board.checkCol(i, opponentColor);
+    //        var tmpScore = board.CheckColScore(i, opponentColor);
     //        //Debug.Log("it was not " + playerColor + ", other players tmp score for " + i + " is " + tmpScore);
     //        if (tmpScore >= 3)
     //        {
@@ -84,7 +84,7 @@ public class HumanPlayerControl : MonoBehaviour, PlayerInterface
 
     public void SetNextCol(int clickInput)
     {
-        Debug.Log("next col set to : " + clickInput);
+        //Debug.Log("next col set to : " + clickInput);
         nextCol = clickInput;
     }
 }

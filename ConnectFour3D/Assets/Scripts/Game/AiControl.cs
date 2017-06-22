@@ -73,7 +73,7 @@ public class AiControl : PlayerInterface {
 
         for (int i = 0; i < board.GetHorizontalSize(); i++)
         {
-            var score = board.checkCol(i, playerColor);
+            var score = board.CheckColScore(i, playerColor);
 
             if (score == tempScore)
             {
@@ -104,7 +104,7 @@ public class AiControl : PlayerInterface {
         
         for (int i = 0; i < board.GetHorizontalSize(); i++)
         {
-            var tmpScore = board.checkCol(i, opponentColor);
+            var tmpScore = board.CheckColScore(i, opponentColor);
             Debug.Log("it was not " + playerColor + ", other players tmp score for " + i + " is " + tmpScore);
             if (tmpScore > 3)
             {

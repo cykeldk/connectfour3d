@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
             turnPlayed = currentPlayer.PlayTurn();
             if (turnPlayed)
             {
-                if (checkWin())
+                if (checkWin(currentPlayer.GetColor()))
                 {
                     Debug.Log("------------------------------------------------" + currentPlayer.GetColor() + " wins");
                     if (currentPlayer.IsAi())
@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
     }
 
 
-    private bool checkWin()
+    private bool checkWin(string pColor)
     {
         int[][] directions = board.GetDirections();
         // Debug.Log("checking for winner on col" + col);
@@ -122,20 +122,25 @@ public class GameController : MonoBehaviour
                 var direction1 = directions[i];
                 var direction2 = directions[directions.Length - (i + 1)];
                 int row = board.findRowInCol(col) - 1;
-                var scoreDirection1 = board.checkScoreFromPoint(1, col, row, direction1[0], direction1[1], currentPlayer.GetColor());
-                var scoreDirection2 = board.checkScoreFromPoint(1, col, row, direction2[0], direction2[1], currentPlayer.GetColor());
-                var tempScore = (scoreDirection1 + scoreDirection2 - 1);
-                //Debug.Log("Point [" + col + ", " + row + "] Direction: [x:" + direction1[0] + "; y: " + direction1[1] + "] has a score of: " + scoreDirection1);
-                //Debug.Log("Point [" + col + ", " + row + "] Direction: [x:" + direction2[0] + "; y: " + direction2[1] + "] has a score of: " + scoreDirection2);
-                //Debug.Log("score direction1: " + scoreDirection1);
-                //Debug.Log("score opposite: " + scoreDirection2);
-                if (tempScore >= scoreToWin)
+                if (board.GetPieceAt(col, row) != null && board.GetPlayerAt(col, row).Equals(pColor))
                 {
-                    
-                    // Debug.Log(playerName + " is the winner");
-                    return true;
+                    var scoreDirection1 = board.checkScoreFromPoint(1, col, row, direction1[0], direction1[1], pColor);
+                    var scoreDirection2 = board.checkScoreFromPoint(1, col, row, direction2[0], direction2[1], pColor);
+                    var tempScore = (scoreDirection1 + scoreDirection2 - 1);
+                    //Debug.Log("Point [" + col + ", " + row + "] Direction: [x:" + direction1[0] + "; y: " + direction1[1] + "] has a score of: " + scoreDirection1);
+                    //Debug.Log("Point [" + col + ", " + row + "] Direction: [x:" + direction2[0] + "; y: " + direction2[1] + "] has a score of: " + scoreDirection2);
+                    //Debug.Log("score direction1: " + scoreDirection1);
+                    //Debug.Log("score opposite: " + scoreDirection2);
+                    if (tempScore >= scoreToWin)
+                    {
+
+                        // Debug.Log(playerName + " is the winner");
+                        return true;
+                    }
                 }
+                
             }
+            
         }
         return false;
     }

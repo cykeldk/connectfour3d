@@ -51,7 +51,12 @@ public class BoardControl : BoardInterface {
 
     public GameObject GetPieceAt(int x, int y)
     {
-        return fields[x][y].GetPiece();
+        if (IsValidPosition(x, y))
+        {
+            return fields[x][y].GetPiece();
+        }
+        return null;
+        
     }
 
     public string GetPlayerAt(int x, int y)
@@ -64,20 +69,20 @@ public class BoardControl : BoardInterface {
     {
 
         int counter = 0;
-        while (counter < VerticalSize - 1 && fields[col][counter].GetPiece() != null)
+        while (counter < VerticalSize && fields[col][counter].GetPiece() != null)
         {
             counter++;
         }
         return counter;
     }
     
-    public float checkCol(int col, string playerColor)
+    public float CheckColScore(int col, string playerColor)
     {
         
         if (fields[col][VerticalSize - 1].GetPiece() != null)
         {
             Debug.Log("column " + col + "is full");
-            return -1f;
+            return 0f;
         }
         float tmp = 0f;
         string debugString = "column " + col + "\n";
@@ -90,21 +95,13 @@ public class BoardControl : BoardInterface {
             
             var scoreDirection1 = checkScoreFromPoint(1, col, row, direction1[0], direction1[1], playerColor);
             var scoreDirection2 = checkScoreFromPoint(1, col, row, direction2[0], direction2[1], playerColor);
-            debugString += "___________________________________DEBUG START__________________________________\n";
-            debugString += "(" + direction1[0] + ", " + direction1[1] + ")  ::: score = " + scoreDirection1 + "\n";
-            debugString +=  "(" + direction2[0] + ", " + direction2[1] + ")  ::: score = " + scoreDirection2 + "\n";
-            debugString += "Sum : " + (scoreDirection1 + scoreDirection2) + "\n";
-            debugString += "___________________________________DEBUG END___________________________________\n";
-
             var tempScore = (scoreDirection1 + scoreDirection2 - 1); // minus one because checkScore from point counts the field it starts on
-            Debug.Log("checking [" + col + "; " + row + "] == " + tempScore);
+            Debug.Log("checking [" + col + "; " + row + "] == " + tempScore + "for " + playerColor + " player");
             if (tempScore > tmp)
             {
                 tmp = tempScore;
             }
         }
-        Debug.Log(debugString);
-        debugString = "";
         return tmp;
 
         /*
@@ -123,15 +120,16 @@ public class BoardControl : BoardInterface {
 
     public int checkScoreFromPoint(int count, int positionX, int positionY, int directionX, int directionY, string playerColor)
     {
-        //if (!IsValidPosition(positionX, positionY)) return count;
+
+        if (!IsValidPosition(positionX, positionY)) return count;
         //if (GetPieceAt(positionX, positionY) == null) return 0;
-        //if (!GetPlayerAt(positionX, positionY).Equals(playerColor)) return 0;
+        //if (!GetPlayerAt(positionX, positionY).Equals(playerColor)) return count;
         int nextX = positionX + directionX;
         int nextY = positionY + directionY;
         if (!IsValidPosition(nextX, nextY)) return count;
         if (GetPieceAt(nextX, nextY) == null) return count;
-        var tmpPlayer = GetPlayerAt(nextX, nextY);
-        if (tmpPlayer.Equals(playerColor))
+        
+        if (GetPlayerAt(nextX, nextY).Equals(playerColor))
         {
             return checkScoreFromPoint(count + 1, nextX, nextY, directionX, directionY, playerColor);
         }
