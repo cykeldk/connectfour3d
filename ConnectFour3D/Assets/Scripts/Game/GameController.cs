@@ -11,9 +11,10 @@ public class GameController : MonoBehaviour
     public GameObject FieldPrefab;
     public GameObject white;
     public GameObject black;
+    public GameObject gameOverDisplay;
     public int lastCol;
     public int scoreToWin;
-
+    
     public PlayerInterface currentPlayer;
     public PlayerInterface waitingPlayer;
     public bool gameOver = false;
@@ -64,8 +65,6 @@ public class GameController : MonoBehaviour
                     }
                     
                     gameOver = true;
-                    //Canvas.FindObjectOfType<GUIText>().text = "the winner is " + currentPlayer.GetColor();
-                    //GetComponent<Canvas>().GetComponent<GUIText>().text = 
                 }
                 else
                 {
@@ -81,7 +80,8 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(0);
+            
+            //SceneManager.LoadScene(0);
             // show win, loss, draw and ask to play again..
 
         }
@@ -108,6 +108,25 @@ public class GameController : MonoBehaviour
         //    }
         //    currentPlayer = "white";
         //}
+    }
+
+    private void OnGUI()
+    {
+        if (gameOver)
+        {
+            Rect container = new Rect(100, 100, 100, 100);
+            var text = GUI.TextArea(container, GameOverState.gameResult);
+            if (GUI.Button(new Rect(200, 100, 100, 50), "Again!")) {
+                SceneManager.LoadScene(1);
+            }
+            if (GUI.Button(new Rect(200, 150, 100, 50), "Back to Main"))
+            {
+                SceneManager.LoadScene(0);
+            }
+            
+
+            
+        }
     }
 
 

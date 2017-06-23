@@ -12,16 +12,17 @@ public class Score : MonoBehaviour
     public GameObject parentObject;
     void Start()
     {
-        //parentObject = GameObject.Find(transform.name + "WinLosePanel");
+        gc = GetComponent<GameController>();
+        parentObject = GameObject.Find("WinLosePanel");
         txt = gameObject.GetComponent<Text>();
-        txt.text = " ";
+        txt.text = GameOverState.gameResult;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (gc.gameOver) {
-            parentObject.transform.gameObject.active = true;
+            parentObject.SetActive(true);
             if (gc.aiWon)
             {
                 txt.text = "You Lose";
@@ -33,7 +34,7 @@ public class Score : MonoBehaviour
         }
         else
         {
-            parentObject.transform.gameObject.active = false;
+            parentObject.SetActive(false);
         }
     }
 }
